@@ -37,6 +37,7 @@ console.log(productos);
 
 //creo la variable para capturar el click
 let btn = document.getElementById("btn");
+const btnLimpiar = document.getElementById("btnLimpiar");
 
 
 let busqueda = document.getElementById("buscado");
@@ -46,17 +47,47 @@ console.log(busqueda);
 //capturo el click
 btn.addEventListener("click", buscar);
 
-//creo la funcion para buscar con el boton
+
+// traigo el contenedor del html
+const contenedorLista = document.getElementById('listaProd');
+
+//Funcion para buscar con el boton
 function buscar (){
     console.log("clickeaste el boton");
+
     let valor = busqueda.value;
-    let serch = productos.find (producto => producto.denominacion === valor);
+    if (valor.length == 0){
+        alert('campo vacío');
 
-    console.log(serch);
-    alert(`${serch.denominacion} ${serch.marca} ${serch.precio}`)
-}
 
-const contenedorLista = document.getElementById('listaProd');
+    }else{
+        let serch = productos.filter(producto => producto.denominacion === valor)
+        console.log(serch);
+
+        //creo el elemento
+        let contenedorResultados = document.createElement("div");
+        let listaResultados = document.createElement('ul');
+
+        //selecciono el elemento padre
+        contenedorResultados.appendChild(listaResultados);
+        contenedorLista.appendChild(contenedorResultados);
+        for(let producto of serch){
+            let resultado = document.createElement('li');
+            resultado.innerText = `${producto.denominacion} ${producto.marca} ${producto.precio}`
+            listaResultados.appendChild(resultado);
+            // alert(`${producto.denominacion} ${producto.marca} ${producto.precio}`);
+        }
+
+
+    return serch;
+    }
+    }
+
+    
+    // let ul = document.createElement('p');
+    // ul.innerText = ` - ${serch.denominacion} ${serch.marca} ${serch.precio}`;
+    // lista.appendChild(ul);
+
 const lista = document.getElementById('lista');
 
 //Funcion para mostrar la lista recorriendo mi array    
