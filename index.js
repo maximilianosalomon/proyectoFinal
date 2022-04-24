@@ -61,7 +61,7 @@ function buscar (){
 
 
     }else{
-        let serch = productos.filter(producto => producto.denominacion === valor)
+        let serch = productos.filter(producto => producto.denominacion.includes(valor))
         console.log(serch);
 
         //creo el elemento
